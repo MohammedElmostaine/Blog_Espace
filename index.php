@@ -1,4 +1,19 @@
 <?php
+include "assets/pages/config.php";
+include "assets/pages/login.php";
+include "assets/pages/register.php";
+
+
+
+
+if (isset($_SESSION['role'])) {
+  if ($_SESSION['role'] == 'user') {
+    header("Location: assets/pages/dashboarduser.php"); 
+  }if ($_SESSION['role'] == 'admin') {
+    header("Location: assets/pages/dashboardadmin.php"); 
+  }
+}
+
 
 ?>
 
@@ -30,7 +45,7 @@
       
       <!-- Links (Hidden on small screens) -->
       <div id="menu" class="hidden md:flex space-x-6 flex items-center">
-        <a href="index.html" class="hover:text-gray-200">Home</a>
+          <a href="index.html" class="hover:text-gray-200">Home</a>
         <?php
         
         if (isset($_SESSION['user_id'])) {
@@ -40,8 +55,6 @@
         ?>
 
         
-        <a href="login.html" class="hover:text-gray-200">Login</a>
-        <a href="register.html" class="hover:text-gray-200">Register</a>
         <button id="toggle-form" class="toggle-form bg-[#807F7B] text-white py-2 px-4 rounded hover:text-black hover:bg-[#FFFFED]">
     Register/Connexion
   </button>
@@ -51,9 +64,14 @@
     <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu" class="hidden bg-[#CCCCC4] md:hidden ">
       <a href="index.html" class="block px-4 py-2 hover:bg-white hover:text-black">Home</a>
-      <a href="dashboard.html" class="block px-4 py-2 hover:bg-white hover:text-black">Dashboard</a>
-      <a href="login.html" class="block px-4 py-2 hover:bg-white hover:text-black">Login</a>
-      <a href="register.html" class="block px-4 py-2 hover:bg-white hover:text-black">Register</a>
+      
+      <?php
+        
+        if (isset($_SESSION['user_id'])) {
+        echo'<a href="dashboard.html" class="block px-4 py-2 hover:bg-white hover:text-black">Dashboard</a>';
+        
+        }
+        ?>
       <button id="toggle-form" class="toggle-form bg-[#807F7B] text-white py-2 px-4 rounded hover:bg-[#FFFFED] mb-[5px] hover:text-black justify-selfe-center">
     Register/Connexion
   </button>
@@ -63,51 +81,50 @@
 
 
 
-    <section >
-<!-- Formulaire d'inscription -->
-<div class="inscription container mx-auto mt-10 flex justify-center">
-<div class="w-full md:w-1/2">
-  <h2 class="ml-[10px]  text-2xl font-bold mb-4">Inscription</h2>
-  <form action="register.php" method="POST" class="bg-white p-6 rounded shadow-md w-full">
-    <div class="mb-4">
-      <label for="username" class="block text-gray-700">Nom d'utilisateur</label>
-      <input type="text" id="username" name="username" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-    </div>
-    <div class="mb-4">
-      <label for="email" class="block text-gray-700">Email</label>
-      <input type="email" id="email" name="email" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-    </div>
-    <div class="mb-4">
-      <label for="password" class="block text-gray-700">Mot de passe</label>
-      <input type="password" id="password" name="password" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
-    </div>
-    <button type="submit" class="w-full bg-[#807F7B] text-white hover:text-black  py-2 rounded hover:bg-[#FFFFED]">S'inscrire</button>
-  </form>
-</div>
-</div>
-
-
-    </section>
-  
-    <section>
-        <!-- Formulaire de connexion -->
-<div class="connexion  container mx-auto mt-10 flex justify-center hidden">
+      <section >
+  <!-- Formulaire d'inscription -->
+  <div class="inscription container mx-auto mt-10 flex justify-center">
   <div class="w-full md:w-1/2">
-    <h2 class="ml-[10px]  text-2xl font-bold mb-4">Connexion</h2>
-    <form action="login.php" method="POST" class="bg-white p-6 rounded shadow-md">
+    <h2 class="ml-[10px]  text-2xl font-bold mb-4">Inscription</h2>
+    <form action="" method="POST" class="bg-white p-6 rounded shadow-md w-full">
       <div class="mb-4">
         <label for="username" class="block text-gray-700">Nom d'utilisateur</label>
         <input type="text" id="username" name="username" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
       </div>
       <div class="mb-4">
+        <label for="email" class="block text-gray-700">Email</label>
+        <input type="email" id="email" name="email" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+      </div>
+      <div class="mb-4">
         <label for="password" class="block text-gray-700">Mot de passe</label>
         <input type="password" id="password" name="password" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
       </div>
-      <button type="submit" class="w-full bg-[#807F7B] text-white hover:text-black py-2 rounded hover:bg-[#FFFFED]">Se connecter</button>
+      <button type="submit" name="registrebutton" class="w-full bg-[#807F7B] text-white hover:text-black  py-2 rounded hover:bg-[#FFFFED]">S'inscrire</button>
     </form>
   </div>
-</div>
-    </section>
+  </div>
+
+      </section>
+    
+      <section>
+          <!-- Formulaire de connexion -->
+  <div class="connexion  container mx-auto mt-10 flex justify-center hidden">
+    <div class="w-full md:w-1/2">
+      <h2 class="ml-[10px]  text-2xl font-bold mb-4">Connexion</h2>
+      <form action="" method="POST" class="bg-white p-6 rounded shadow-md">
+        <div class="mb-4">
+          <label for="username" class="block text-gray-700">Nom d'utilisateur</label>
+          <input type="email" id="email" name="email" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-gray-700">Mot de passe</label>
+          <input type="password" id="password" name="password" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200">
+        </div>
+        <button type="submit" name="loginbutton" class="w-full bg-[#807F7B] text-white hover:text-black py-2 rounded hover:bg-[#FFFFED]">Se connecter</button>
+      </form>
+    </div>
+  </div>
+      </section>
 
 </body>
 </html>
