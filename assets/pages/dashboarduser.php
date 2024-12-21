@@ -10,7 +10,7 @@ if (!isset($_SESSION['user'])) {
 
 $user_id = $_SESSION['user'];
 
-$sql = "SELECT bp.title, bp.content,  bp.created_at, u.username, t.name  AS tag_name, u.username 
+$sql = "SELECT bp.id, bp.title, bp.content,  bp.created_at, u.username, t.name  AS tag_name, u.username 
         FROM blog_posts bp 
         LEFT JOIN tags t ON bp.tag_id = t.id 
         LEFT JOIN users u ON bp.user_id = u.id 
@@ -43,7 +43,7 @@ $result = $stmt->get_result();
   <nav class="bg-[#CCCCC4] text-white">
     <div class="container mx-auto flex justify-between items-center py-4 px-4">
       <!-- Logo -->
-      <a href="index.html" class="text-2xl font-bold">Blog Espace</a>
+      <a href="index.php" class="text-2xl font-bold">Blog Espace</a>
       
       <!-- Burger Menu (Hidden on large screens) -->
       <button id="menu-btn" class="block md:hidden focus:outline-none">
@@ -54,7 +54,7 @@ $result = $stmt->get_result();
       
       <!-- Links (Hidden on small screens) -->
       <div id="menu" class="hidden md:flex space-x-6 flex items-center">
-        <a href="index.html" class="hover:text-gray-200">Home</a>
+        <a href="index.php" class="hover:text-gray-200">Home</a>
         <?php
         
         if (isset($_SESSION['user'])) {
@@ -68,7 +68,7 @@ $result = $stmt->get_result();
 
     <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu" class="hidden bg-[#CCCCC4] md:hidden ">
-      <a href="index.html" class="block px-4 py-2 hover:bg-white hover:text-black">Home</a>
+      <a href="index.php" class="block px-4 py-2 hover:bg-white hover:text-black">Home</a>
       <?php
         
         if (isset($_SESSION['user'])) {
@@ -107,17 +107,19 @@ $result = $stmt->get_result();
         <h1 class="text-3xl font-bold mb-6">My Blog Posts</h1>
 
         <?php if ($result->num_rows > 0): ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                 <?php while ($post = $result->fetch_assoc()): ?>
-                    <div class="bg-white p-4 rounded shadow">
+                  <a href="postdetaill.php?id=<?php echo $post['id']; ?>" class="hover:none">
+                  <div class="bg-white p-4 rounded shadow">
                         
                         <h2 class="text-xl font-semibold mt-2"><?php echo htmlspecialchars($post['title']); ?></h2>
                         <p class="text-gray-600 text-sm">By <?php echo htmlspecialchars($post['username']); ?> on <?php echo date('F j, Y', strtotime($post['created_at'])); ?></p>
-                        <p class="mt-2"><?php echo htmlspecialchars($post['content']); ?></p>
+                        <p class="mt-2"><?php echo htmlspecialchars(explode("\n", $post['content'])[0]); ?></p>
                         <?php if ($post['tag_name']): ?>
                             <p class="text-gray-500 text-sm mt-2">Tag: <?php echo htmlspecialchars($post['tag_name']); ?></p>
                         <?php endif; ?>
                     </div>
+                    </a>
                 <?php endwhile; ?>
             </div>
         <?php else: ?>

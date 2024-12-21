@@ -34,7 +34,7 @@ if (isset($_SESSION['role'])) {
   <nav class="bg-[#CCCCC4] text-white">
     <div class="container mx-auto flex justify-between items-center py-4 px-4">
       <!-- Logo -->
-      <a href="index.html" class="text-2xl font-bold">Blog Espace</a>
+      <a href="assets/pages/index.php" class="text-2xl font-bold">Blog Espace</a>
       
       <!-- Burger Menu (Hidden on large screens) -->
       <button id="menu-btn" class="block md:hidden focus:outline-none">
@@ -45,7 +45,7 @@ if (isset($_SESSION['role'])) {
       
       <!-- Links (Hidden on small screens) -->
       <div id="menu" class="hidden md:flex space-x-6 flex items-center">
-          <a href="index.html" class="hover:text-gray-200">Home</a>
+          <a href="assets/pages/index.php" class="hover:text-gray-200">Home</a>
         <?php
         
         if (isset($_SESSION['user_id'])) {
@@ -63,7 +63,7 @@ if (isset($_SESSION['role'])) {
 
     <!-- Mobile Menu (Hidden by default) -->
     <div id="mobile-menu" class="hidden bg-[#CCCCC4] md:hidden ">
-      <a href="index.html" class="block px-4 py-2 hover:bg-white hover:text-black">Home</a>
+      <a href="assets/pages/index.php" class="block px-4 py-2 hover:bg-white hover:text-black">Home</a>
       
       <?php
         
